@@ -34,6 +34,7 @@ class User
      * @param Id           $userId
      * @param Email        $email
      * @param PasswordHash $passwordHash
+     * @param Role         $role
      */
     public function __construct(Id $userId, Email $email, PasswordHash $passwordHash, Role $role)
     {

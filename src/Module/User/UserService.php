@@ -32,6 +32,8 @@ class UserService
      * @param Password $password
      *
      * @return null|User
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      */
     public function getLoggedInUserByEmailAndPassword(Email $email, Password $password): ?User
     {
@@ -49,6 +51,8 @@ class UserService
      * @param Id $userId
      *
      * @return null|User
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      */
     public function getLoggedInUserByUserId(Id $userId): ?User
     {
@@ -76,6 +80,8 @@ class UserService
      * @param Id $userId
      *
      * @return null|User
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      */
     public function getUserByUserId(Id $userId): ?User
     {

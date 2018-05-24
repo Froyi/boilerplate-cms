@@ -5,7 +5,12 @@ namespace Project\Controller;
 
 use Project\Configuration;
 use Project\Module\Database\Database;
+use Project\Module\GenericValueObject\Id;
+use Project\Module\User\User;
+use Project\Module\User\UserService;
+use Project\Routing;
 use Project\Service\JsPluginService;
+use Project\Utilities\Tools;
 use Project\View\ViewRenderer;
 
 /**
@@ -23,17 +28,32 @@ class DefaultController
     /** @var Database $database */
     protected $database;
 
+    /** @var  User $loggedInUser */
+    protected $loggedInUser;
+
+    /** @var  UserService $userService */
+    protected $userService;
+
     /**
      * DefaultController constructor.
      *
      * @param Configuration $configuration
      * @param string        $routeName
+     *
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      */
     public function __construct(Configuration $configuration, string $routeName)
     {
         $this->configuration = $configuration;
         $this->viewRenderer = new ViewRenderer($this->configuration);
         $this->database = new Database($this->configuration);
+        $this->userService = new UserService($this->database);
+
+        if (Tools::getValue('userId') !== false) {
+            $userId = Id::fromString(Tools::getValue('userId'));
+            $this->loggedInUser = $this->userService->getLoggedInUserByUserId($userId);
+        }
 
         $this->setDefaultViewConfig();
 
@@ -45,11 +65,20 @@ class DefaultController
      */
     protected function setDefaultViewConfig(): void
     {
-        $this->viewRenderer->addViewConfig('page', 'notfound');
+        $this->viewRenderer->addViewConfig('page', Routing::ERROR_ROUTE);
+
+        /**
+         * Logged In User
+         */
+        if ($this->loggedInUser !== null) {
+            $this->viewRenderer->addViewConfig('loggedInUser', $this->loggedInUser);
+        }
     }
 
     /**
      * @param string $routeName
+     *
+     * @throws \InvalidArgumentException
      */
     protected function setJsPackages(string $routeName): void
     {
@@ -71,7 +100,7 @@ class DefaultController
     public function notFoundAction(): void
     {
         try {
-            $this->viewRenderer->addViewConfig('page', 'notfound');
+            $this->viewRenderer->addViewConfig('page', Routing::ERROR_ROUTE);
 
             $this->viewRenderer->renderTemplate();
         } catch (\Twig_Error_Loader $error) {
@@ -93,10 +122,11 @@ class DefaultController
 
     /**
      * @param string $name
+     *
      * @throws \InvalidArgumentException
-     * @throws \Twig_Error_Syntax
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Syntax
      */
     protected function showStandardPage(string $name): void
     {

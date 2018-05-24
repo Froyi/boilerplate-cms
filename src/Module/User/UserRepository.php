@@ -9,11 +9,11 @@ use Project\Module\GenericValueObject\Id;
 
 class UserRepository
 {
-    const TABLE = 'user';
+    protected const TABLE = 'user';
 
-    const ORDERBY = 'userId';
+    protected const ORDERBY = 'userId';
 
-    const ORDERKIND = 'ASC';
+    protected const ORDERKIND = 'ASC';
 
     /** @var  Database $database */
     protected $database;
@@ -31,6 +31,7 @@ class UserRepository
      * @param Email $email
      *
      * @return mixed
+     * @throws \RuntimeException
      */
     public function getUserByEmail(Email $email)
     {
@@ -44,6 +45,7 @@ class UserRepository
      * @param Id $userId
      *
      * @return mixed
+     * @throws \RuntimeException
      */
     public function getUserByUserId(Id $userId)
     {

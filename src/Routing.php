@@ -9,7 +9,8 @@ namespace Project;
  */
 class Routing
 {
-    protected const ERROR_ROUTE = 'notfound';
+    /** @var string ERROR_ROUTE */
+    public const ERROR_ROUTE = 'notfound';
 
     /** @var array $routeConfiguration */
     protected $routeConfiguration;
@@ -38,6 +39,8 @@ class Routing
 
     /**
      * @param string $routeName
+     *
+     * @throws \InvalidArgumentException
      */
     public function startRoute(string $routeName): void
     {

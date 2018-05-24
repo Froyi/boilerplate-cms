@@ -15,6 +15,7 @@ class UserFactory
      * @param Password $password
      *
      * @return null|User
+     * @throws \InvalidArgumentException
      */
     public function getLoggedInUserByPassword($object, Password $password): ?User
     {
@@ -31,6 +32,7 @@ class UserFactory
      * @param $object
      *
      * @return null|User
+     * @throws \InvalidArgumentException
      */
     public function getLoggedInUserByUserId($object): ?User
     {
@@ -47,6 +49,7 @@ class UserFactory
      * @param $object
      *
      * @return User
+     * @throws \InvalidArgumentException
      */
     public function getUser($object): User
     {

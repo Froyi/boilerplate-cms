@@ -14,6 +14,7 @@ use Project\View\ValueObject\TemplateDir;
  */
 class ViewRenderer
 {
+    /** @var string DEFAULT_PAGE_TEMPLATE */
     protected const DEFAULT_PAGE_TEMPLATE = 'index.twig';
 
     /** @var TemplateDir $templateDir */
@@ -30,7 +31,9 @@ class ViewRenderer
 
     /**
      * ViewRenderer constructor.
+     *
      * @param Configuration $configuration
+     *
      * @throws \InvalidArgumentException
      */
     public function __construct(Configuration $configuration)
@@ -53,6 +56,7 @@ class ViewRenderer
 
     /**
      * @param string $template
+     *
      * @throws \Twig_Error_Loader
      * @throws \InvalidArgumentException
      * @throws \Twig_Error_Syntax
@@ -65,6 +69,7 @@ class ViewRenderer
 
     /**
      * Add filter
+     * @throws \InvalidArgumentException
      */
     protected function addViewFilter(): void
     {
@@ -86,9 +91,10 @@ class ViewRenderer
 
         $this->viewRenderer->addFunction($routeFilter);
 
-        $shortenFilter = new \Twig_SimpleFunction('shortener', function (string $text = '', int $amount = 50, bool $points = true) {
-            return Tools::shortener($text, $amount, $points);
-        });
+        $shortenFilter = new \Twig_SimpleFunction('shortener',
+            function (string $text = '', int $amount = 50, bool $points = true) {
+                return Tools::shortener($text, $amount, $points);
+            });
 
         $this->viewRenderer->addFunction($shortenFilter);
     }
@@ -100,5 +106,15 @@ class ViewRenderer
     public function addViewConfig(string $name, $value): void
     {
         $this->config[$name] = $value;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function removeViewConfig(string $name): void
+    {
+        if (isset($this->config[$name])) {
+            unset($this->config[$name]);
+        }
     }
 }

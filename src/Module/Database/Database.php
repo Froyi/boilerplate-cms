@@ -123,6 +123,7 @@ class Database
      * @param Query $query
      *
      * @return array
+     * @throws \RuntimeException
      */
     public function fetchAll(Query $query): array
     {
@@ -135,6 +136,7 @@ class Database
      * @param Query $query
      *
      * @return mixed
+     * @throws \RuntimeException
      */
     public function fetch(Query $query)
     {
@@ -147,6 +149,7 @@ class Database
      * @param Query $query
      *
      * @return bool
+     * @throws \RuntimeException
      */
     public function execute(Query $query): bool
     {

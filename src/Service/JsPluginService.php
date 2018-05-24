@@ -29,6 +29,7 @@ class JsPluginService
      *
      *
      * @return array
+     * @throws \InvalidArgumentException
      */
     public function getMainPackages(): array
     {
@@ -52,6 +53,7 @@ class JsPluginService
      * @param string $routeName
      *
      * @return array
+     * @throws \InvalidArgumentException
      */
     public function getPackagesByRouteName(string $routeName): array
     {
@@ -75,6 +77,7 @@ class JsPluginService
      * @param string $packageName
      *
      * @return string
+     * @throws \InvalidArgumentException
      */
     protected function getPackageByPackageName(string $packageName): string
     {

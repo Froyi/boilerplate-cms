@@ -13,6 +13,10 @@ use Project\Module\Mailer\MailSubject;
  */
 class MailerController extends DefaultController
 {
+    /**
+     *
+     * @throws \InvalidArgumentException
+     */
     public function sendMailAction(): void
     {
         $to = Email::fromString('ms2002@onlinehome.de');

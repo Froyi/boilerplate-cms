@@ -36,6 +36,7 @@ class Role
      * @param null|string $role
      *
      * @return Role
+     * @throws \InvalidArgumentException
      */
     public static function fromString(string $role = null): self
     {
@@ -50,10 +51,12 @@ class Role
 
     /**
      * @param string $role
+     *
+     * @throws \InvalidArgumentException
      */
     protected static function ensureRoleIsValid(string $role): void
     {
-        if (in_array($role, self::VALID_ROLES) === false) {
+        if (\in_array($role, self::VALID_ROLES, true) === false) {
             throw new \InvalidArgumentException('This role is not valid ' . $role);
         }
     }

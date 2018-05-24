@@ -32,7 +32,7 @@ class Configuration
         $this->configuration = [];
 
         foreach(self::CONFIG_LIST as $config) {
-            $this->configuration = array_merge($this->configuration, include $config);
+            $this->configuration += include $config;
         }
     }
 

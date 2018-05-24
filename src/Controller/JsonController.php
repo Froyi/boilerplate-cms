@@ -20,6 +20,9 @@ class JsonController extends DefaultController
      *
      * @param Configuration $configuration
      * @param string        $routeName
+     *
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      */
     public function __construct(Configuration $configuration, string $routeName)
     {
