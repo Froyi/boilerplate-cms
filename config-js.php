@@ -12,8 +12,8 @@ return [
         // add here route name or add something to main package
         'main' => [
             'jquery' => true,
-            'responsive-slides' => true,
-            'pageslide' => true,
+            'responsive-slides' => false,
+            'pageslide' => false,
             'main' => true,
         ]
     ]

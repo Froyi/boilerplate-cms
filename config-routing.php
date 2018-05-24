@@ -5,6 +5,10 @@ return [
             'controller' => 'IndexController',
             'action' => 'indexAction'
         ],
+        'login' => [
+            'controller' => 'IndexController',
+            'action' => 'loginAction'
+        ],
         'sendmail' => [
             'controller' => 'MailerController',
             'action' => 'sendMailAction'

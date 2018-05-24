@@ -21,6 +21,11 @@ class IndexController extends DefaultController
         $this->showStandardPage('home');
     }
 
+    public function loginAction(): void
+    {
+        $this->showStandardPage('login');
+    }
+
     /**
      * another example index action
      * @throws \Twig_Error_Runtime

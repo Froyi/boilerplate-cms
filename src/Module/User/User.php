@@ -119,6 +119,14 @@ class User
     }
 
     /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return ($this->role->getRole() === Role::ROLE_ADMIN);
+    }
+
+    /**
      *
      */
     protected function loginSuccessUser(): void
