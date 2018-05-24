@@ -54,8 +54,14 @@ class UserFactory
 
         $email = Email::fromString($object->email);
 
+        $roleString = null;
+        if (empty($object->role) === false) {
+            $roleString = $object->role;
+        }
+        $role = Role::fromString($roleString);
+
         $passwordHash = PasswordHash::fromString($object->passwordHash);
 
-        return new User($userId, $email, $passwordHash);
+        return new User($userId, $email, $passwordHash, $role);
     }
 }

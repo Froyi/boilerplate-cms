@@ -25,6 +25,9 @@ class User
     /** @var  bool $isLoggedIn */
     protected $isLoggedIn;
 
+    /** @var Role $role */
+    protected $role;
+
     /**
      * User constructor.
      *
@@ -32,11 +35,12 @@ class User
      * @param Email        $email
      * @param PasswordHash $passwordHash
      */
-    public function __construct(Id $userId, Email $email, PasswordHash $passwordHash)
+    public function __construct(Id $userId, Email $email, PasswordHash $passwordHash, Role $role)
     {
         $this->userId = $userId;
         $this->email = $email;
         $this->passwordHash = $passwordHash;
+        $this->role = $role;
         $this->isLoggedIn = false;
     }
 
@@ -104,6 +108,14 @@ class User
     public function logout(): bool
     {
         return $this->logoutUser();
+    }
+
+    /**
+     * @return Role
+     */
+    public function getRole(): Role
+    {
+        return $this->role;
     }
 
     /**

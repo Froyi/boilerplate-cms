@@ -9,13 +9,15 @@ User Table
 CREATE TABLE `user` (
 	`userId` VARCHAR(100) NOT NULL,
 	`email` VARCHAR(100) NOT NULL,
-	`passwordHash` VARCHAR(100) NOT NULL
+	`passwordHash` VARCHAR(100) NOT NULL,
+	`role` ENUM('Admin','Member') NOT NULL,
+	PRIMARY KEY (`userId`)
 )
 COLLATE='utf8_general_ci';
 
-ALTER TABLE `user` ADD PRIMARY KEY(userId);
-
 /**
 Adding test user
+
+PW: Test1234
  */
- INSERT INTO `user` (`userId`, `email`, `passwordHash`) VALUES ('12343452436346', 'info@testuser.de', 'ifh8nwqz8fwem9u98wauwa');
+ INSERT INTO `user` (`userId`, `email`, `passwordHash`, `role`) VALUES ('518b6e46-0144-4d84-adde-936fa80ca7e6', 'info@testuser.de', '$2y$10$O9NVUyV1KuDMlSHXGASFnuHYCsD0MM0sduuz0UiLoKNDJJ2EBaH0e', 'Admin');
