@@ -24,7 +24,8 @@ return [
         'database_name' => 'boilerplate_cms'
     ],
     'controller' => [
-        'namespace' => 'Controller'
+        'namespace' => 'Controller',
+        'actioSuffix' => 'Action'
     ],
     'mailer' => [
         'server' => ConfigurationInterface::DEFAULT_SERVER,

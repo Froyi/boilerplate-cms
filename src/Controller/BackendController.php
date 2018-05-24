@@ -30,7 +30,8 @@ class BackendController extends DefaultController
         parent::__construct($configuration, $routeName);
 
         if ($this->loggedInUser === null) {
-            $this->showStandardPage(Routing::ERROR_ROUTE);
+            $this->showStandardPage('login');
+            exit;
         }
     }
 

@@ -65,7 +65,7 @@ class DefaultController
      */
     protected function setDefaultViewConfig(): void
     {
-        $this->viewRenderer->addViewConfig('page', Routing::ERROR_ROUTE);
+        $this->viewRenderer->addViewConfig('page', Routing::ROUTE_ERROR);
 
         /**
          * Logged In User
@@ -100,7 +100,7 @@ class DefaultController
     public function notFoundAction(): void
     {
         try {
-            $this->viewRenderer->addViewConfig('page', Routing::ERROR_ROUTE);
+            $this->viewRenderer->addViewConfig('page', Routing::ROUTE_ERROR);
 
             $this->viewRenderer->renderTemplate();
         } catch (\Twig_Error_Loader $error) {

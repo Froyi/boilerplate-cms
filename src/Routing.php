@@ -7,11 +7,8 @@ namespace Project;
  * Class Routing
  * @package Project
  */
-class Routing
+class Routing implements RoutingInterface
 {
-    /** @var string ERROR_ROUTE */
-    public const ERROR_ROUTE = 'notfound';
-
     /** @var array $routeConfiguration */
     protected $routeConfiguration;
 
@@ -24,6 +21,9 @@ class Routing
     /** @var Configuration $configuration */
     protected $configuration;
 
+    /** @var string $actionSuffix */
+    protected $actionSuffix;
+
     /**
      * Routing constructor.
      * @param Configuration $configuration
@@ -33,6 +33,7 @@ class Routing
     {
         $this->routeConfiguration = $configuration->getEntryByName('route');
         $this->controllerNamespace = $configuration->getEntryByName('controller')['namespace'];
+        $this->actionSuffix = $configuration->getEntryByName('controller')['actionSuffix'];
         $this->projectNamespace = $configuration->getEntryByName('project')['namespace'];
         $this->configuration = $configuration;
     }
@@ -45,17 +46,17 @@ class Routing
     public function startRoute(string $routeName): void
     {
         if (isset($this->routeConfiguration[$routeName]) === false) {
-            if (isset($this->routeConfiguration[self::ERROR_ROUTE]) === false) {
+            if (isset($this->routeConfiguration[self::ROUTE_ERROR]) === false) {
                 throw new \InvalidArgumentException('There is no valid Route. Look in the config for mapping.');
             }
 
-            $route = $this->routeConfiguration[self::ERROR_ROUTE];
+            $routeController = $this->routeConfiguration[self::ROUTE_ERROR];
         } else {
-            $route = $this->routeConfiguration[$routeName];
+            $routeController = $this->routeConfiguration[$routeName];
         }
 
-        $controllerName = $this->projectNamespace . '\\' . $this->controllerNamespace . '\\' . $route['controller'];
-        $actionName = $route['action'];
+        $controllerName = $this->projectNamespace . '\\' . $this->controllerNamespace . '\\' . $routeController;
+        $actionName = $routeName . $this->actionSuffix;
 
         $controller = new $controllerName($this->configuration, $routeName);
         $controller->$actionName();

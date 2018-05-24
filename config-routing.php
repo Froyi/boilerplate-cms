@@ -1,29 +1,16 @@
 <?php
+
+use Project\RoutingInterface;
+
 return [
     'route' => [
-        'index' => [
-            'controller' => 'IndexController',
-            'action' => 'indexAction'
-        ],
-        'login' => [
-            'controller' => 'IndexController',
-            'action' => 'loginAction'
-        ],
-        'login-redirect' => [
-            'controller' => 'IndexController',
-            'action' => 'loginRedirectAction'
-        ],
-        'sendmail' => [
-            'controller' => 'MailerController',
-            'action' => 'sendMailAction'
-        ],
-        'backend' => [
-            'controller' => 'BackendController',
-            'action' => 'backendAction'
-        ],
-        'logout' => [
-            'controller' => 'BackendController',
-            'action' => 'logoutAction'
-        ]
+        RoutingInterface::ROUTE_INDEX => RoutingInterface::CONTROLLER_INDEX,
+        RoutingInterface::ROUTE_LOGIN => RoutingInterface::CONTROLLER_INDEX,
+        RoutingInterface::ROUTE_LOGIN_REDIRECT => RoutingInterface::CONTROLLER_INDEX,
+
+        RoutingInterface::ROUTE_SEND_MAIL => RoutingInterface::CONTROLLER_MAILER,
+
+        RoutingInterface::ROUTE_BACKEND => RoutingInterface::CONTROLLER_BACKEND,
+        RoutingInterface::ROUTE_LOGOUT => RoutingInterface::CONTROLLER_BACKEND,
     ]
 ];
