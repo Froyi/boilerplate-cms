@@ -27,7 +27,7 @@ interface RoutingInterface
     public const ROUTE_LOGIN = 'login';
 
     /** @var string ROUTE_LOGIN_REDIRECT */
-    public const ROUTE_LOGIN_REDIRECT = 'loginRedrect';
+    public const ROUTE_LOGIN_REDIRECT = 'loginRedirect';
 
     /** @var string ROUTE_SEND_MAIL */
     public const ROUTE_SEND_MAIL = 'sendmail';

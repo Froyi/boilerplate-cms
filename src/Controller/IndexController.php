@@ -5,7 +5,9 @@ namespace Project\Controller;
 
 use Project\Module\GenericValueObject\Email;
 use Project\Module\GenericValueObject\Password;
+use Project\RoutingInterface;
 use Project\Utilities\Tools;
+use Project\View\PageInterface;
 
 /**
  * Class IndexController
@@ -23,7 +25,7 @@ class IndexController extends DefaultController
      */
     public function indexAction(): void
     {
-        $this->showStandardPage('home');
+        $this->showStandardPage(PageInterface::PAGE_HOME);
     }
 
     /**
@@ -39,7 +41,7 @@ class IndexController extends DefaultController
         if ($this->loggedInUser !== null) {
             $this->redirectToBackendPage();
         } else {
-            $this->showStandardPage('login');
+            $this->showStandardPage(PageInterface::PAGE_LOGIN);
         }
     }
 
@@ -59,7 +61,7 @@ class IndexController extends DefaultController
         if ($this->loggedInUser !== null) {
             $this->redirectToBackendPage();
         } else {
-            header('Location: ' . Tools::getRouteUrl('login'));
+            header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_LOGIN));
         }
     }
 
@@ -68,6 +70,6 @@ class IndexController extends DefaultController
      */
     protected function redirectToBackendPage(): void
     {
-        header('Location: ' . Tools::getRouteUrl('backend'));
+        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND));
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+use \Project\RoutingInterface;
+
 return [
     'js-packages' => [
         'fancybox' => '/js/fancybox.min.js',
@@ -12,9 +15,13 @@ return [
         // add here route name or add something to main package
         'main' => [
             'jquery' => true,
-            'responsive-slides' => false,
+            'responsive-slides' => true,
             'pageslide' => false,
             'main' => true,
+        ],
+
+        RoutingInterface::ROUTE_INDEX => [
+            'fancybox' => true,
         ]
     ]
 ];

@@ -58,10 +58,10 @@ class JsPluginService
     public function getPackagesByRouteName(string $routeName): array
     {
         $jsRoutePackage = [];
-        $route = $this->configuration->getEntryByName('route')[$routeName];
+        $jsBox = $this->configuration->getEntryByName('js-boxes');
 
-        if (empty($route) === false && empty($route[self::PACKAGES_NAME]) === false) {
-            foreach ($route[self::PACKAGES_NAME] as $routePackage => $enabled) {
+        if (empty($jsBox) === false && empty($jsBox[$routeName]) === false) {
+            foreach ($jsBox[$routeName] as $routePackage => $enabled) {
                 if ($enabled === true) {
                     $jsRoutePackage[] = $this->getPackageByPackageName($routePackage);
                 }

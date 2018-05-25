@@ -8,9 +8,10 @@ use Project\Module\Database\Database;
 use Project\Module\GenericValueObject\Id;
 use Project\Module\User\User;
 use Project\Module\User\UserService;
-use Project\Routing;
+
 use Project\Service\JsPluginService;
 use Project\Utilities\Tools;
+use Project\View\PageInterface;
 use Project\View\ViewRenderer;
 
 /**
@@ -65,7 +66,7 @@ class DefaultController
      */
     protected function setDefaultViewConfig(): void
     {
-        $this->viewRenderer->addViewConfig('page', Routing::ROUTE_ERROR);
+        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_ERROR);
 
         /**
          * Logged In User
@@ -100,7 +101,7 @@ class DefaultController
     public function notFoundAction(): void
     {
         try {
-            $this->viewRenderer->addViewConfig('page', Routing::ROUTE_ERROR);
+            $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_NOTFOUND);
 
             $this->viewRenderer->renderTemplate();
         } catch (\Twig_Error_Loader $error) {
@@ -117,7 +118,7 @@ class DefaultController
      */
     public function errorPageAction(): void
     {
-        $this->showStandardPage('error');
+        $this->showStandardPage(PageInterface::PAGE_ERROR);
     }
 
     /**

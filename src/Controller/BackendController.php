@@ -4,8 +4,9 @@ declare (strict_types=1);
 namespace Project\Controller;
 
 use Project\Configuration;
-use Project\Routing;
+use Project\RoutingInterface;
 use Project\Utilities\Tools;
+use Project\View\PageInterface;
 
 /**
  * Class BackendController
@@ -30,7 +31,7 @@ class BackendController extends DefaultController
         parent::__construct($configuration, $routeName);
 
         if ($this->loggedInUser === null) {
-            $this->showStandardPage('login');
+            $this->showStandardPage(PageInterface::PAGE_LOGIN);
             exit;
         }
     }
@@ -44,7 +45,7 @@ class BackendController extends DefaultController
      */
     public function backendAction(): void
     {
-        $this->viewRenderer->addViewConfig('page', 'backend');
+        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_BACKEND);
         $this->viewRenderer->renderTemplate();
     }
 
@@ -58,7 +59,7 @@ class BackendController extends DefaultController
         }
 
         /** redirect because of logout action */
-        header('Location: ' . Tools::getRouteUrl('index'));
+        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_INDEX));
     }
 
 

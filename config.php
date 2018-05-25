@@ -25,7 +25,7 @@ return [
     ],
     'controller' => [
         'namespace' => 'Controller',
-        'actioSuffix' => 'Action'
+        'actionSuffix' => 'Action'
     ],
     'mailer' => [
         'server' => ConfigurationInterface::DEFAULT_SERVER,
