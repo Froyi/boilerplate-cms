@@ -15,7 +15,9 @@ use Project\View\ValueObject\TemplateDir;
 class ViewRenderer
 {
     /** @var string DEFAULT_PAGE_TEMPLATE */
-    protected const DEFAULT_PAGE_TEMPLATE = 'index.twig';
+    public const DEFAULT_PAGE_TEMPLATE = 'index.twig';
+
+    public const DEFAULT_PAGE_BACKEND_TEMPLATE = 'backend/backend.twig';
 
     /** @var TemplateDir $templateDir */
     protected $templateDir;
@@ -28,6 +30,9 @@ class ViewRenderer
 
     /** @var  array $config */
     protected $config = [];
+
+    /** @var string $defaultPageTemplate */
+    protected $defaultPageTemplate = self::DEFAULT_PAGE_TEMPLATE;
 
     /**
      * ViewRenderer constructor.
@@ -62,9 +67,29 @@ class ViewRenderer
      * @throws \Twig_Error_Syntax
      * @throws \Twig_Error_Runtime
      */
-    public function renderTemplate(string $template = self::DEFAULT_PAGE_TEMPLATE): void
+    public function renderTemplate(string $template = null): void
     {
-        echo $this->viewRenderer->render($template, $this->config);
+        if ($template === null) {
+            echo $this->viewRenderer->render($this->getDefaultPageTemplate(), $this->config);
+        } else {
+            echo $this->viewRenderer->render($template, $this->config);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultPageTemplate(): string
+    {
+        return $this->defaultPageTemplate;
+    }
+
+    /**
+     * @param string $defaultPageTemplate
+     */
+    public function setDefaultPageTemplate(string $defaultPageTemplate): void
+    {
+        $this->defaultPageTemplate = $defaultPageTemplate;
     }
 
     /**

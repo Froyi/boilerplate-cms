@@ -9,7 +9,10 @@ return [
     'template' => [
         'name' => 'default',
         'dir' =>  '/default',
-        'main_css_path' => '/css/main.css'
+        'main_css_path' => '/css/main.css',
+        'backend' => [
+            'dir' => '/backend'
+        ,]
     ],
     'database_live' => [
         'host' => ConfigurationInterface::DEFAULT_SERVER,

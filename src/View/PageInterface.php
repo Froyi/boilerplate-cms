@@ -13,7 +13,7 @@ interface PageInterface
 
     public const PAGE_ERROR = 'error';
 
-    public const PAGE_BACKEND = 'backend';
+    public const PAGE_DASHBOARD = 'dashboard';
 
     public const PAGE_LOGIN = 'login';
 

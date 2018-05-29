@@ -7,6 +7,7 @@ use Project\Configuration;
 use Project\RoutingInterface;
 use Project\Utilities\Tools;
 use Project\View\PageInterface;
+use Project\View\ViewRenderer;
 
 /**
  * Class BackendController
@@ -34,6 +35,9 @@ class BackendController extends DefaultController
             $this->showStandardPage(PageInterface::PAGE_LOGIN);
             exit;
         }
+
+        // set new templateDir
+        $this->viewRenderer->setDefaultPageTemplate(ViewRenderer::DEFAULT_PAGE_BACKEND_TEMPLATE);
     }
 
     /**
@@ -43,9 +47,9 @@ class BackendController extends DefaultController
      * @throws \Twig_Error_Loader
      * @throws \InvalidArgumentException
      */
-    public function backendAction(): void
+    public function dashboardAction(): void
     {
-        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_BACKEND);
+        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_DASHBOARD);
         $this->viewRenderer->renderTemplate();
     }
 
@@ -61,7 +65,4 @@ class BackendController extends DefaultController
         /** redirect because of logout action */
         header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_INDEX));
     }
-
-
-
 }
