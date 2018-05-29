@@ -33,7 +33,16 @@ interface RoutingInterface
     public const ROUTE_SEND_MAIL = 'sendmail';
 
     /** @var string ROUTE_DASHBOARD */
-    public const ROUTE_DASHBOARD = 'dashboard';
+    public const ROUTE_BACKEND_DASHBOARD = 'dashboard';
+
+    /** @var string ROUTE_BACKEND_NEWS */
+    public const ROUTE_BACKEND_NEWS = 'news';
+
+    /** @var string ROUTE_BACKEND_GALLERY */
+    public const ROUTE_BACKEND_GALLERY = 'gallery';
+
+    /** @var string ROUTE_BACKEND_SETTINGS */
+    public const ROUTE_BACKEND_SETTINGS = 'settings';
 
     /** @var string ROUTE_LOGOUT */
     public const ROUTE_LOGOUT = 'logout';

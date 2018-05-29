@@ -16,6 +16,7 @@
     }
 }
 
+//noinspection CssOptimizeSimilarProperties,CssOptimizeSimilarProperties,CssOptimizeSimilarProperties
 .navigation {
     overflow: hidden;
     margin-bottom: 20px;
@@ -25,40 +26,57 @@
         height: 54px;
         background-color: @color-5;
         margin-bottom: 7px;
-        color: @color-2;
         line-height: 54px;
-        padding-left: 52px;
         cursor: pointer;
 
         background-repeat: no-repeat;
         background-size: 25px 25px;
         background-position: 10px 14px;
 
-        &:hover {
+        a {
+            color: @color-2;
+            display: block;
+            width: 100%;
+            height: 54px;
+            margin-bottom: 7px;
+            line-height: 54px;
+            padding-left: 52px;
+        }
+
+        &:hover a {
             color: @color-6;
         }
 
+        //noinspection CssOptimizeSimilarProperties,CssOptimizeSimilarProperties
         &.active{
             background-color: @color-7;
             border-left: 5px solid @color-6;
-            padding-left: 47px;
-            color: @color-6;
+            background-position: 5px 14px;
+
+            a {
+                color: @color-6;
+                padding-left: 47px;
+            }
         }
     }
 
     .navigation-dashboard {
+        //noinspection CssUnknownTarget,CssUnknownTarget
         background-image: url('../img/dashboard.svg');
     }
 
     .navigation-news {
+        //noinspection CssUnknownTarget,CssUnknownTarget
         background-image: url('../img/news.svg');
     }
 
     .navigation-gallery {
+        //noinspection CssUnknownTarget,CssUnknownTarget
         background-image: url('../img/gallery.svg');
     }
 
     .navigation-settings {
+        //noinspection CssUnknownTarget,CssUnknownTarget
         background-image: url('../img/settings.svg');
     }
 }

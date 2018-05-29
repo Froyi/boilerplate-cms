@@ -9,19 +9,19 @@
 
     <div class="navigation">
         <div class="navigation-dashboard {% if page is same as ('dashboard') %}active{% endif %}">
-            Dashboard
+            <a href="{{ route('dashboard') }}">Dashboard</a>
         </div>
 
         <div class="navigation-news {% if page is same as ('news') %}active{% endif %}">
-            News
+            <a href="{{ route('news') }}">News</a>
         </div>
 
         <div class="navigation-gallery {% if page is same as ('gallery') %}active{% endif %}">
-            Galerie
+            <a href="{{ route('gallery') }}">Galerie</a>
         </div>
 
         <div class="navigation-settings {% if page is same as ('settings') %}active{% endif %}">
-            Einstellungen
+            <a href="{{ route('settings') }}">Einstellungen</a>
         </div>
     </div>
     

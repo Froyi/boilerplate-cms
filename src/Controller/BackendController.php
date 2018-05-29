@@ -49,7 +49,46 @@ class BackendController extends DefaultController
      */
     public function dashboardAction(): void
     {
-        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_DASHBOARD);
+        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_BACKEND_DASHBOARD);
+        $this->viewRenderer->renderTemplate();
+    }
+
+    /**
+     * backend main site action
+     * @throws \Twig_Error_Syntax
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Loader
+     * @throws \InvalidArgumentException
+     */
+    public function newsAction(): void
+    {
+        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_BACKEND_NEWS);
+        $this->viewRenderer->renderTemplate();
+    }
+
+    /**
+     * backend main site action
+     * @throws \Twig_Error_Syntax
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Loader
+     * @throws \InvalidArgumentException
+     */
+    public function galleryAction(): void
+    {
+        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_BACKEND_GALLERY);
+        $this->viewRenderer->renderTemplate();
+    }
+
+    /**
+     * backend main site action
+     * @throws \Twig_Error_Syntax
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Loader
+     * @throws \InvalidArgumentException
+     */
+    public function settingsAction(): void
+    {
+        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_BACKEND_SETTINGS);
         $this->viewRenderer->renderTemplate();
     }
 

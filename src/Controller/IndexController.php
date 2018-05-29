@@ -70,6 +70,6 @@ class IndexController extends DefaultController
      */
     protected function redirectToBackendPage(): void
     {
-        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_DASHBOARD));
+        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_DASHBOARD));
     }
 }

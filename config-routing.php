@@ -10,7 +10,10 @@ return [
 
         RoutingInterface::ROUTE_SEND_MAIL => RoutingInterface::CONTROLLER_MAILER,
 
-        RoutingInterface::ROUTE_DASHBOARD => RoutingInterface::CONTROLLER_BACKEND,
+        RoutingInterface::ROUTE_BACKEND_DASHBOARD => RoutingInterface::CONTROLLER_BACKEND,
+        RoutingInterface::ROUTE_BACKEND_NEWS => RoutingInterface::CONTROLLER_BACKEND,
+        RoutingInterface::ROUTE_BACKEND_GALLERY => RoutingInterface::CONTROLLER_BACKEND,
+        RoutingInterface::ROUTE_BACKEND_SETTINGS => RoutingInterface::CONTROLLER_BACKEND,
         RoutingInterface::ROUTE_LOGOUT => RoutingInterface::CONTROLLER_BACKEND,
     ]
 ];
