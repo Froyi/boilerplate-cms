@@ -3,13 +3,11 @@
 <head>
     {% include ('backend/basic/head.twig') %}
 </head>
-<body>
-{% include ('backend/basic/header.twig') %}
+<body class="backend">
+{% include ('backend/module/navigation.twig') %}
 
 <div class="main-content js-main-content">
     {% include ('backend/page/' ~ page ~ '.twig') %}
 </div>
-
-{% include ('backend/basic/footer.twig') %}
 </body>
 </html>

@@ -1,0 +1,31 @@
+<div class="navigation-container">
+    <div class="head-name">
+        {% if projectName %}
+            Backend - {{ projectName }}
+        {% else %}
+            Backend
+        {% endif %}
+    </div>
+
+    <div class="navigation">
+        <div class="navigation-dashboard {% if page is same as ('dashboard') %}active{% endif %}">
+            Dashboard
+        </div>
+
+        <div class="navigation-news {% if page is same as ('news') %}active{% endif %}">
+            News
+        </div>
+
+        <div class="navigation-gallery {% if page is same as ('gallery') %}active{% endif %}">
+            Galerie
+        </div>
+
+        <div class="navigation-settings {% if page is same as ('settings') %}active{% endif %}">
+            Einstellungen
+        </div>
+    </div>
+    
+    <div class="logout">
+        <a href="{{ route('logout') }}">Logout</a>
+    </div>
+</div>

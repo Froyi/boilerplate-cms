@@ -66,6 +66,11 @@ class DefaultController
      */
     protected function setDefaultViewConfig(): void
     {
+        $projectData = $this->configuration->getEntryByName('project');
+        if (empty($projectData['name']) === false) {
+            $this->viewRenderer->addViewConfig('projectName', $projectData['name']);
+        }
+
         $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_ERROR);
 
         /**

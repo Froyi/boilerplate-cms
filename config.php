@@ -3,7 +3,7 @@ use Project\ConfigurationInterface;
 
 return [
     'project' => [
-        'name' => 'Testproject',
+        'name' => 'CMS',
         'namespace' => 'Project'
     ],
     'template' => [
