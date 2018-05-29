@@ -7,6 +7,8 @@
 {% include ('backend/module/navigation.twig') %}
 
 <div class="main-content js-main-content">
+    {% include ('module/notification.twig') %}
+
     {% include ('backend/page/' ~ page ~ '.twig') %}
 </div>
 </body>

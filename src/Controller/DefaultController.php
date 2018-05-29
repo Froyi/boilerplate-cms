@@ -6,6 +6,7 @@ namespace Project\Controller;
 use Project\Configuration;
 use Project\Module\Database\Database;
 use Project\Module\GenericValueObject\Id;
+use Project\Module\Notification\NotificationService;
 use Project\Module\User\User;
 use Project\Module\User\UserService;
 
@@ -35,6 +36,9 @@ class DefaultController
     /** @var  UserService $userService */
     protected $userService;
 
+    /** @var NotificationService $notificationService */
+    protected $notificationService;
+
     /**
      * DefaultController constructor.
      *
@@ -50,6 +54,7 @@ class DefaultController
         $this->viewRenderer = new ViewRenderer($this->configuration);
         $this->database = new Database($this->configuration);
         $this->userService = new UserService($this->database);
+        $this->notificationService = new NotificationService();
 
         if (Tools::getValue('userId') !== false) {
             $userId = Id::fromString(Tools::getValue('userId'));
@@ -83,6 +88,13 @@ class DefaultController
         if ($this->loggedInUser !== null) {
             $this->viewRenderer->addViewConfig('loggedInUser', $this->loggedInUser);
         }
+
+        /**
+         * Notifications
+         */
+        $notifications = $this->notificationService->getNotifications(false);
+
+        $this->viewRenderer->addViewConfig('notifications', $notifications);
     }
 
     /**

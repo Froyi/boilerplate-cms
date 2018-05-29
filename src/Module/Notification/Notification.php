@@ -2,13 +2,14 @@
 
 namespace Project\Module\Notification;
 
+use Project\Module\DefaultModel;
 use Project\Module\GenericValueObject\Message;
 
 /**
  * Class Notification
  * @package     Project\Module\Notification
  */
-class Notification
+class Notification extends DefaultModel
 {
     /** @var string SESSION_NOTIFICATION_NAME */
     public const SESSION_NOTIFICATION_NAME = 'notifications';
@@ -45,5 +46,15 @@ class Notification
     public function getMessage(): Message
     {
         return $this->message;
+    }
+
+    public function toSession(): \stdClass
+    {
+        $object = new \stdClass();
+
+        $object->level = $this->level->getLevel();
+        $object->message = $this->message->getMessage();
+
+        return $object;
     }
 }

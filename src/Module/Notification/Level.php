@@ -2,11 +2,13 @@
 
 namespace Project\Module\Notification;
 
+use Project\Module\GenericValueObject\DefaultGenericValueObject;
+
 /**
  * Class Level
  * @package     Project\Module\Notification
  */
-class Level
+class Level extends DefaultGenericValueObject
 {
     /** @var string LEVEL_ERROR */
     public const LEVEL_ERROR = 'error';

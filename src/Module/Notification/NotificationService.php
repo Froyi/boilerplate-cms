@@ -38,7 +38,7 @@ class NotificationService
 
         foreach ($notificationsData as $notificationData) {
             $notification = $this->notificationFactory->getNotificationByObject(unserialize($notificationData,
-                ['allowed_classes' => ['Notification']]));
+                ['allowed_classes' => 'stdClass']));
 
             if ($notification !== null) {
                 $notifications[] = $notification;
@@ -106,7 +106,7 @@ class NotificationService
             return false;
         }
 
-        $_SESSION[Notification::SESSION_NOTIFICATION_NAME][] = serialize($notification);
+        $_SESSION[Notification::SESSION_NOTIFICATION_NAME][] = serialize($notification->toSession());
 
         return true;
     }
