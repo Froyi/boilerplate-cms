@@ -7,8 +7,13 @@ namespace Project\Module\GenericValueObject;
  * Class AbstractDatetime
  * @package Project\Module\GenericValueObject
  */
+/**
+ * Class AbstractDatetime
+ * @package     Project\Module\GenericValueObject
+ */
 abstract class AbstractDatetime extends DefaultGenericValueObject
 {
+    /** @var string DATE_FORMAT */
     public const DATE_FORMAT = 'Y-m-d H:i:s';
 
     /** @var  \DateTime $datetime */
@@ -16,6 +21,7 @@ abstract class AbstractDatetime extends DefaultGenericValueObject
 
     /**
      * Datetime constructor.
+     *
      * @param $datetime
      */
     protected function __construct($datetime)
@@ -25,6 +31,7 @@ abstract class AbstractDatetime extends DefaultGenericValueObject
 
     /**
      * @param $datetime
+     *
      * @return AbstractDatetime
      * @throws \InvalidArgumentException
      */
@@ -38,7 +45,17 @@ abstract class AbstractDatetime extends DefaultGenericValueObject
     }
 
     /**
+     * @return AbstractDatetime
+     * @throws \InvalidArgumentException
+     */
+    public static function fromNow(): self
+    {
+        return self::fromValue('now');
+    }
+
+    /**
      * @param $datetime
+     *
      * @throws \InvalidArgumentException
      */
     protected static function ensureDatetimeIsValid($datetime): void
@@ -52,6 +69,7 @@ abstract class AbstractDatetime extends DefaultGenericValueObject
 
     /**
      * @param $datetime
+     *
      * @return int
      */
     protected static function convertDatetime($datetime): int
@@ -71,6 +89,7 @@ abstract class AbstractDatetime extends DefaultGenericValueObject
 
     /**
      * @param string $format
+     *
      * @return false|string
      */
     public function toDateFormat(string $format)
@@ -80,6 +99,7 @@ abstract class AbstractDatetime extends DefaultGenericValueObject
 
     /**
      * @param Datetime $datetimeInput
+     *
      * @return bool
      */
     public function equals(Datetime $datetimeInput): bool

@@ -490,12 +490,21 @@ h1 {
   background-color: #417378;
 }
 .navigation-container .head-name {
-  color: #ffffff;
   height: 70px;
-  line-height: 70px;
+  cursor: default;
+}
+.navigation-container .head-name h1 {
+  line-height: 35px;
   font-size: 1.3em;
   text-align: center;
-  cursor: default;
+  color: #ffffff;
+}
+.navigation-container .head-name h2 {
+  line-height: 25px;
+  font-size: 1.1em;
+  color: #ffffff;
+  text-align: center;
+  font-weight: normal;
 }
 .navigation {
   overflow: hidden;

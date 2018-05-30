@@ -1,10 +1,12 @@
 <div class="navigation-container">
     <div class="head-name">
-        {% if projectName %}
-            Backend - {{ projectName }}
-        {% else %}
-            Backend
-        {% endif %}
+        <h1>{% if projectName %}
+                Backend - {{ projectName }}
+            {% else %}
+                Backend
+            {% endif %}
+        </h1>
+        <h2>{{ title }}</h2>
     </div>
 
     <div class="navigation">
@@ -24,7 +26,7 @@
             <a href="{{ route('settings') }}">Einstellungen</a>
         </div>
     </div>
-    
+
     <div class="logout">
         <a href="{{ route('logout') }}">Logout</a>
     </div>

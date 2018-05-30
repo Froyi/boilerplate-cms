@@ -60,15 +60,20 @@ class ViewRenderer
     }
 
     /**
-     * @param string $template
+     * @param array|null $pageParameter
+     * @param string     $template
      *
      * @throws \Twig_Error_Loader
-     * @throws \InvalidArgumentException
-     * @throws \Twig_Error_Syntax
      * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function renderTemplate(string $template = null): void
+    public function renderTemplate(array $pageParameter = null, string $template = null): void
     {
+        if ($pageParameter !== null && empty($pageParameter) === false) {
+            $this->addViewConfig('page', $pageParameter['template']);
+            $this->addViewConfig('title', $pageParameter['title']);
+        }
+        
         if ($template === null) {
             echo $this->viewRenderer->render($this->getDefaultPageTemplate(), $this->config);
         } else {

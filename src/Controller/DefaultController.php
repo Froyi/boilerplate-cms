@@ -80,7 +80,8 @@ class DefaultController
             $this->viewRenderer->addViewConfig('projectName', '');
         }
 
-        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_ERROR);
+        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_ERROR['template']);
+        $this->viewRenderer->addViewConfig('title', PageInterface::PAGE_ERROR['title']);
 
         /**
          * Logged In User
@@ -122,9 +123,7 @@ class DefaultController
     public function notFoundAction(): void
     {
         try {
-            $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_NOTFOUND);
-
-            $this->viewRenderer->renderTemplate();
+            $this->viewRenderer->renderTemplate(PageInterface::PAGE_NOTFOUND);
         } catch (\Twig_Error_Loader $error) {
             echo 'Alles ist kaputt!';
         }
@@ -143,19 +142,17 @@ class DefaultController
     }
 
     /**
-     * @param string $name
+     * @param array $page
      *
      * @throws \InvalidArgumentException
-     * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    protected function showStandardPage(string $name): void
+    protected function showStandardPage(array $page): void
     {
         try {
-            $this->viewRenderer->addViewConfig('page', $name);
-
-            $this->viewRenderer->renderTemplate();
+            $this->viewRenderer->renderTemplate($page);
         } catch (\InvalidArgumentException $error) {
             $this->notFoundAction();
         }

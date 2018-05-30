@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Project\Controller;
 
 use Project\Configuration;
+use Project\Module\News\NewsService;
 use Project\RoutingInterface;
 use Project\Utilities\Tools;
 use Project\View\PageInterface;
@@ -42,6 +43,7 @@ class BackendController extends DefaultController
 
     /**
      * backend main site action
+     * @throws \RuntimeException
      * @throws \Twig_Error_Syntax
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Loader
@@ -49,8 +51,13 @@ class BackendController extends DefaultController
      */
     public function dashboardAction(): void
     {
-        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_BACKEND_DASHBOARD);
-        $this->viewRenderer->renderTemplate();
+        $newsService = new NewsService($this->database, $this->userService);
+        $news = $newsService->getAllNewsOrderByDate();
+        if (empty($news) === false) {
+            $this->viewRenderer->addViewConfig('news', $news);
+        }
+
+        $this->viewRenderer->renderTemplate(PageInterface::PAGE_BACKEND_DASHBOARD);
     }
 
     /**
@@ -62,8 +69,7 @@ class BackendController extends DefaultController
      */
     public function newsAction(): void
     {
-        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_BACKEND_NEWS);
-        $this->viewRenderer->renderTemplate();
+        $this->viewRenderer->renderTemplate(PageInterface::PAGE_BACKEND_NEWS);
     }
 
     /**
@@ -75,8 +81,7 @@ class BackendController extends DefaultController
      */
     public function galleryAction(): void
     {
-        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_BACKEND_GALLERY);
-        $this->viewRenderer->renderTemplate();
+        $this->viewRenderer->renderTemplate(PageInterface::PAGE_BACKEND_GALLERY);
     }
 
     /**
@@ -88,8 +93,7 @@ class BackendController extends DefaultController
      */
     public function settingsAction(): void
     {
-        $this->viewRenderer->addViewConfig('page', PageInterface::PAGE_BACKEND_SETTINGS);
-        $this->viewRenderer->renderTemplate();
+        $this->viewRenderer->renderTemplate(PageInterface::PAGE_BACKEND_SETTINGS);
     }
 
     /**
