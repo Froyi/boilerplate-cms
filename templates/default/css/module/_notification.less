@@ -1,0 +1,19 @@
+.notification-container {
+    position: absolute;
+    width: 100%;
+    cursor: pointer;
+
+    .notification {
+        padding: 20px;
+        font-size: 1em;
+        color: @color-2;
+
+        &.alert, &.error {
+            background-color: fade(@color-8, 90%);
+        }
+
+        &.info, &.success {
+            background-color: fade(@color-9, 90%);
+        }
+    }
+}

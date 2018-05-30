@@ -38,7 +38,7 @@ class NotificationService
 
         foreach ($notificationsData as $notificationData) {
             $notification = $this->notificationFactory->getNotificationByObject(unserialize($notificationData,
-                ['allowed_classes' => 'stdClass']));
+                ['allowed_classes' => ['stdClass']]));
 
             if ($notification !== null) {
                 $notifications[] = $notification;
