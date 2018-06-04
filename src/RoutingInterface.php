@@ -44,6 +44,9 @@ interface RoutingInterface
     /** @var string ROUTE_BACKEND_SETTINGS */
     public const ROUTE_BACKEND_SETTINGS = 'settings';
 
+    /** @var string ROUTE_BACKEND_NEWS_CREATE */
+    public const ROUTE_BACKEND_NEWS_CREATE = 'newsCreate';
+
     /** @var string ROUTE_LOGOUT */
     public const ROUTE_LOGOUT = 'logout';
 

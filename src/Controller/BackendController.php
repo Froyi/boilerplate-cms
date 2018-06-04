@@ -73,6 +73,31 @@ class BackendController extends DefaultController
     }
 
     /**
+     * Create a new news.
+     */
+    public function newsCreateAction(): void
+    {
+        $newsService = new NewsService($this->database, $this->userService);
+
+        try {
+            $news = $newsService->getNewsByParams($_POST);
+            if ($news === null) {
+                $this->notificationService->setError('Die Daten sind nicht komplett und in ausreichender Qualität eingegeben worden.');
+            } else {
+                if ($newsService->saveNews($news) === true) {
+                    $this->notificationService->setSuccess('Die News konnte erfolgreich gespeichert werden.');
+                } else {
+                    $this->notificationService->setError('Die News konnte nicht gespeichert werden..');
+                }
+            }
+        } catch (\InvalidArgumentException | \RuntimeException $exception) {
+            $this->notificationService->setError('Die Daten sind fehlerhaft.');
+        }
+
+        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
+    }
+
+    /**
      * backend main site action
      * @throws \Twig_Error_Syntax
      * @throws \Twig_Error_Runtime

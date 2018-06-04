@@ -121,13 +121,17 @@ class NewsService
             $objectParameter->created = Datetime::fromNow()->toString();
         }
 
-        $user = $this->getUserByNewsData($objectParameter);
+        try {
+            $user = $this->getUserByNewsData($objectParameter);
 
-        if ($user === null) {
+            if ($user === null) {
+                return null;
+            }
+
+            return $this->newsFactory->getNewsFromObject($objectParameter, $user);
+        } catch (\InvalidArgumentException $exception) {
             return null;
         }
-
-        return $this->newsFactory->getNewsFromObject($objectParameter, $user);
     }
 
     /**
