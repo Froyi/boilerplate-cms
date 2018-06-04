@@ -47,6 +47,15 @@ interface RoutingInterface
     /** @var string ROUTE_BACKEND_NEWS_CREATE */
     public const ROUTE_BACKEND_NEWS_CREATE = 'newsCreate';
 
+    /** @var string ROUTE_BACKEND_NEWS_DELETE */
+    public const ROUTE_BACKEND_NEWS_DELETE = 'newsDelete';
+
+    /** @var string ROUTE_BACKEND_NEWS_EDIT_SUBMIT */
+    public const ROUTE_BACKEND_NEWS_EDIT_SUBMIT = 'newsEditSubmit';
+
+    /** @var string ROUTE_JSON_NEWS_EDIT */
+    public const ROUTE_JSON_NEWS_EDIT = 'newsEdit';
+
     /** @var string ROUTE_LOGOUT */
     public const ROUTE_LOGOUT = 'logout';
 

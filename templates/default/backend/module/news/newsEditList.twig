@@ -1,0 +1,24 @@
+<div class="news-edit-list">
+    {% if newsEdit %}
+        <div class="js-edit-news-container invisible"></div>
+
+        <h2>News zur Bearbeitung auswählen</h2>
+
+        {% for news in newsEdit %}
+            {% set newsId = {'newsId': news.getNewsId} %}
+            <div class="news-edit flex js-news-edit">
+                <div class="news-edit-title">{{ news.getTitle }}</div>
+                <div class="news-edit-author">{{ news.getUser.getEmail }}</div>
+                <div class="news-edit-created">{{ news.getCreated }}</div>
+                <div class="news-edit-button">
+                    <button class="js-news-edit-button" data-news-id="{{ news.getNewsId }}">Bearbeiten</button>
+                </div>
+                <div class="news-edit-delete-button">
+                    <a href="{{ route('newsDelete', newsId) }}" class="js-news-edit-delete">Löschen</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Es gibt leider noch keine News, welche bearbeitet werden kann. Bitte erstelle zunächst eine neue News.</p>
+    {% endif %}
+</div>

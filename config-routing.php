@@ -15,6 +15,10 @@ return [
         RoutingInterface::ROUTE_BACKEND_GALLERY => RoutingInterface::CONTROLLER_BACKEND,
         RoutingInterface::ROUTE_BACKEND_SETTINGS => RoutingInterface::CONTROLLER_BACKEND,
         RoutingInterface::ROUTE_BACKEND_NEWS_CREATE => RoutingInterface::CONTROLLER_BACKEND,
+        RoutingInterface::ROUTE_BACKEND_NEWS_DELETE => RoutingInterface::CONTROLLER_BACKEND,
+        RoutingInterface::ROUTE_BACKEND_NEWS_EDIT_SUBMIT => RoutingInterface::CONTROLLER_BACKEND,
         RoutingInterface::ROUTE_LOGOUT => RoutingInterface::CONTROLLER_BACKEND,
+
+        RoutingInterface::ROUTE_JSON_NEWS_EDIT => RoutingInterface::CONTROLLER_JSON,
     ]
 ];

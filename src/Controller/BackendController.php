@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Project\Controller;
 
 use Project\Configuration;
+use Project\Module\GenericValueObject\Id;
 use Project\Module\News\NewsService;
 use Project\RoutingInterface;
 use Project\Utilities\Tools;
@@ -62,6 +63,7 @@ class BackendController extends DefaultController
 
     /**
      * backend main site action
+     * @throws \RuntimeException
      * @throws \Twig_Error_Syntax
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Loader
@@ -69,6 +71,10 @@ class BackendController extends DefaultController
      */
     public function newsAction(): void
     {
+        $newsService = new NewsService($this->database, $this->userService);
+        $newsEdit = $newsService->getAllNewsOrderByDate();
+
+        $this->viewRenderer->addViewConfig('newsEdit', $newsEdit);
         $this->viewRenderer->renderTemplate(PageInterface::PAGE_BACKEND_NEWS);
     }
 
@@ -87,11 +93,69 @@ class BackendController extends DefaultController
                 if ($newsService->saveNews($news) === true) {
                     $this->notificationService->setSuccess('Die News konnte erfolgreich gespeichert werden.');
                 } else {
-                    $this->notificationService->setError('Die News konnte nicht gespeichert werden..');
+                    $this->notificationService->setError('Die News konnte nicht gespeichert werden.');
                 }
             }
         } catch (\InvalidArgumentException | \RuntimeException $exception) {
             $this->notificationService->setError('Die Daten sind fehlerhaft.');
+        }
+
+        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
+    }
+
+    /**
+     * Save the edited neas in repository.
+     */
+    public function newsEditSubmitAction(): void
+    {
+        $newsService = new NewsService($this->database, $this->userService);
+
+        try {
+            $news = $newsService->getNewsByParams($_POST);
+            if ($news === null) {
+                $this->notificationService->setError('Die Daten sind nicht komplett und in ausreichender Qualität eingegeben worden.');
+            } else {
+                if ($newsService->saveNews($news) === true) {
+                    $this->notificationService->setSuccess('Die News konnte erfolgreich bearbeitet werden.');
+                } else {
+                    $this->notificationService->setError('Die News konnte nicht bearbeitet werden.');
+                }
+            }
+        } catch (\InvalidArgumentException | \RuntimeException $exception) {
+            $this->notificationService->setError('Die Daten sind fehlerhaft.');
+        }
+
+        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
+    }
+
+    /**
+     * Delete news in repository
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     */
+    public function newsDeleteAction(): void
+    {
+        $newsService = new NewsService($this->database, $this->userService);
+
+        $newsId = Tools::getValue('newsId');
+        if ($newsId === false) {
+            $this->notificationService->setError('Die News konnte nicht gelöscht werden, da es keine gültigen Übergabeparameter gab.');
+            header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
+            exit;
+        }
+
+        $newsId = Id::fromString($newsId);
+        $news = $newsService->getNewsByNewsId($newsId);
+        if ($news === null) {
+            $this->notificationService->setError('Die News konnte nicht gelöscht werden, da es bereits keine News mehr gibt.');
+            header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
+            exit;
+        }
+
+        if ($newsService->deleteNews($news) === true) {
+            $this->notificationService->setSuccess('Die News konnte erfolgreich gelöscht werden.');
+        } else {
+            $this->notificationService->setError('Die News konnte nicht gelöscht werden, da es bereits keine News mehr gibt.');
         }
 
         header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));

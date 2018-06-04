@@ -73,12 +73,24 @@ class ViewRenderer
             $this->addViewConfig('page', $pageParameter['template']);
             $this->addViewConfig('title', $pageParameter['title']);
         }
-        
+
         if ($template === null) {
             echo $this->viewRenderer->render($this->getDefaultPageTemplate(), $this->config);
         } else {
             echo $this->viewRenderer->render($template, $this->config);
         }
+    }
+
+    /**
+     * @param string $template
+     * @return string
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function renderJsonView(string $template = self::DEFAULT_PAGE_TEMPLATE): string
+    {
+        return $this->viewRenderer->render($template, $this->config);
     }
 
     /**

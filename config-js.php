@@ -11,6 +11,7 @@ return [
         'pageslide' => '/js/jquery.pageslide.min.js',
         'main' => '/js/main.js',
         'notification' => '/js/module/notification.js',
+        'backend' => '/js/module/backend.js',
     ],
     'js-boxes' => [
         // add here route name or add something to main package
@@ -20,6 +21,7 @@ return [
             'pageslide' => false,
             'main' => true,
             'notification' => true,
+            'backend' => true,
         ],
 
         RoutingInterface::ROUTE_INDEX => [
