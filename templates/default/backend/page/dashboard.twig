@@ -1,0 +1,16 @@
+<div class="page-dashboard">
+    <div class="backend-container">
+        {% if newsCount > 0 %}
+            <h3>{{ newsCount }}</h3>
+            <p>News geschrieben</p>
+
+            {% if lastNews %}
+                <p>Letzte News geschrieben: {{ lastNews.getCreated }}</p>
+            {% endif %}
+        {% else %}
+            <p>Noch keine News vorhanden</p>
+        {% endif %}
+
+
+    </div>
+</div>

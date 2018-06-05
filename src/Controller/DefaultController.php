@@ -21,6 +21,9 @@ use Project\View\ViewRenderer;
  */
 class DefaultController
 {
+    /** @var string HEADER_LOCATION */
+    protected const HEADER_LOCATION = 'Location: ';
+
     /** @var ViewRenderer $viewRenderer */
     protected $viewRenderer;
 

@@ -56,6 +56,8 @@ class BackendController extends DefaultController
         $news = $newsService->getAllNewsOrderByDate();
         if (empty($news) === false) {
             $this->viewRenderer->addViewConfig('news', $news);
+            $this->viewRenderer->addViewConfig('newsCount', \count($news));
+            $this->viewRenderer->addViewConfig('lastNews', \current($news));
         }
 
         $this->viewRenderer->renderTemplate(PageInterface::PAGE_BACKEND_DASHBOARD);
@@ -100,7 +102,7 @@ class BackendController extends DefaultController
             $this->notificationService->setError('Die Daten sind fehlerhaft.');
         }
 
-        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
+        header(self::HEADER_LOCATION . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
     }
 
     /**
@@ -125,7 +127,7 @@ class BackendController extends DefaultController
             $this->notificationService->setError('Die Daten sind fehlerhaft.');
         }
 
-        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
+        header(self::HEADER_LOCATION . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
     }
 
     /**
@@ -140,7 +142,7 @@ class BackendController extends DefaultController
         $newsId = Tools::getValue('newsId');
         if ($newsId === false) {
             $this->notificationService->setError('Die News konnte nicht gelöscht werden, da es keine gültigen Übergabeparameter gab.');
-            header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
+            header(self::HEADER_LOCATION . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
             exit;
         }
 
@@ -148,7 +150,7 @@ class BackendController extends DefaultController
         $news = $newsService->getNewsByNewsId($newsId);
         if ($news === null) {
             $this->notificationService->setError('Die News konnte nicht gelöscht werden, da es bereits keine News mehr gibt.');
-            header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
+            header(self::HEADER_LOCATION . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
             exit;
         }
 
@@ -158,7 +160,7 @@ class BackendController extends DefaultController
             $this->notificationService->setError('Die News konnte nicht gelöscht werden, da es bereits keine News mehr gibt.');
         }
 
-        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
+        header(self::HEADER_LOCATION . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_NEWS));
     }
 
     /**
@@ -195,6 +197,6 @@ class BackendController extends DefaultController
         }
 
         /** redirect because of logout action */
-        header('Location: ' . Tools::getRouteUrl(RoutingInterface::ROUTE_INDEX));
+        header(self::HEADER_LOCATION . Tools::getRouteUrl(RoutingInterface::ROUTE_INDEX));
     }
 }
