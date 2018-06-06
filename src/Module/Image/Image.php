@@ -3,8 +3,9 @@ declare (strict_types=1);
 
 namespace Project\Module\Image;
 
-use claviska\SimpleImage;
 use Project\Module\DefaultModel;
+use Project\Module\GenericValueObject\Id;
+use Project\Module\GenericValueObject\Title;
 
 /**
  * Class Image
@@ -12,122 +13,69 @@ use Project\Module\DefaultModel;
  */
 class Image extends DefaultModel
 {
-    /** @var string PATH_NEWS */
-    public const PATH_NEWS = 'data/img/news/';
+    /** @var Id $imageId */
+    protected $imageId;
 
-    /** @var string PATH_ALBUM */
-    public const PATH_ALBUM = 'data/img/galerie/';
+    /** @var string $imageUrl */
+    protected $imageUrl;
 
-    /** @var int SAVE_QUALITY */
-    protected const SAVE_QUALITY = 50;
+    /** @var Title $title */
+    protected $title;
 
-    /** @var int MAX_LENGTH */
-    protected const MAX_LENGTH = 1200;
-
-    /** @var bool AUTO_ORIENTATION */
-    protected const AUTO_ORIENTATION = false;
-
-    /** @var bool FIT_TO_ORIENTATION */
-    protected const FIT_TO_ORIENTATION = false;
-
-    /** @var bool SHARPEN */
-    protected const SHARPEN = false;
-
-    /** @var SimpleImage $image */
-    protected $image;
-
-    /** @var string $imagePath */
-    protected $imagePath;
+    /** @var Id $galeryId */
+    protected $galeryId;
 
     /**
      * Image constructor.
      *
-     * @param string $path
-     *
-     * @throws \Exception
+     * @param Id     $imageId
+     * @param string $imageUrl
+     * @param Id     $galeryId
      */
-    protected function __construct(string $path)
+    public function __construct(Id $imageId, string $imageUrl, Id $galeryId)
     {
-        $this->image = new SimpleImage($path);
-
-        $this->imagePath = $path;
-
-        if (self::AUTO_ORIENTATION === true) {
-            $this->image->autoOrient();
-        }
-
-        if (self::FIT_TO_ORIENTATION === true) {
-            if ($this->image->getAspectRatio() >= 1) {
-                $this->image->fitToWidth(self::MAX_LENGTH);
-            } else {
-                $this->image->fitToHeight(self::MAX_LENGTH);
-            }
-        }
-
-        if (self::SHARPEN === true) {
-            $this->image->sharpen();
-        }
+        $this->imageId = $imageId;
+        $this->imageUrl = $imageUrl;
+        $this->galeryId = $galeryId;
     }
 
     /**
-     * @param string $path
-     *
-     * @return Image
-     * @throws \Exception
+     * @return Id
      */
-    public static function fromFile(string $path): self
+    public function getImageId(): Id
     {
-        return new self($path);
+        return $this->imageId;
     }
 
     /**
      * @return string
      */
-    public function getImagePath(): string
+    public function getImageUrl(): string
     {
-        return (string)$this->imagePath;
+        return $this->imageUrl;
     }
 
     /**
-     * @return string
+     * @return Title
      */
-    public function __toString(): string
+    public function getTitle(): Title
     {
-        return (string)$this->imagePath;
+        return $this->title;
     }
 
     /**
-     * @return int
+     * @return Id
      */
-    public function getWidth(): int
+    public function getGaleryId(): Id
     {
-        return $this->image->getWidth();
+        return $this->galeryId;
     }
 
     /**
-     * @return SimpleImage
+     * @param Title $title
      */
-    public function getImage(): SimpleImage
+    public function setTitle(Title $title): void
     {
-        return $this->image;
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return bool
-     * @throws \Exception
-     */
-    public function saveToPath(string $path): bool
-    {
-        try {
-            $this->image->toFile($path, null, self::SAVE_QUALITY);
-        } catch (\InvalidArgumentException $error) {
-            return false;
-        }
-
-        $this->imagePath = $path;
-
-        return true;
+        $this->title = $title;
     }
 }

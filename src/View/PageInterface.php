@@ -29,8 +29,8 @@ interface PageInterface
         'title' => 'News'
     ];
 
-    public const PAGE_BACKEND_GALLERY = [
-        'template' => 'gallery',
+    public const PAGE_BACKEND_GALERY = [
+        'template' => 'galery',
         'title' => 'Galerie'
     ];
 

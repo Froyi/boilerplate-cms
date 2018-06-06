@@ -11,6 +11,18 @@
             <p>Noch keine News vorhanden</p>
         {% endif %}
 
+        <a href="{{ route('news') }}">News verwalten</a>
+    </div>
 
+    <div class="backend-container">
+        {% if galeries %}
+            <h3>{{ galeryCount }}</h3>
+            <p>Galerien gibt es bereits</p>
+            
+        {% else %}
+            <p>Es gibt noch keine Galerien</p>
+        {% endif %}
+
+        <a href="{{ route('galery') }}">Galerien verwalten</a>
     </div>
 </div>

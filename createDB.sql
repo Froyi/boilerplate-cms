@@ -41,3 +41,31 @@ COLLATE='utf8_general_ci';
 Adding test news
  */
 INSERT INTO `boilerplate_cms`.`news` (`newsId`, `title`, `text`, `created`, `userId`) VALUES ('518b6e46-0144-4d84-adde-936fa80ca7e4', 'TitelNews1', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec', '2018-05-30 11:34:26', '518b6e46-0144-4d84-adde-936fa80ca7e6');
+
+
+
+/**
+Galery Table
+ */
+
+CREATE TABLE `galery` (
+	`galeryId` VARCHAR(200) NOT NULL,
+	`title` VARCHAR(200) NOT NULL,
+	`galeryDate` DATE NOT NULL,
+	PRIMARY KEY (`galeryId`)
+)
+COLLATE='utf8_general_ci';
+
+/**
+Image Table
+ */
+
+ CREATE TABLE `image` (
+	`imageId` VARCHAR(200) NOT NULL,
+	`imageUrl` VARCHAR(400) NOT NULL,
+	`title` VARCHAR(100) NOT NULL,
+	`galeryId` VARCHAR(200) NOT NULL,
+	PRIMARY KEY (`imageId`)
+)
+COLLATE='utf8_general_ci';
+

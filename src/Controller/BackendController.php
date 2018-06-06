@@ -4,8 +4,11 @@ declare (strict_types=1);
 namespace Project\Controller;
 
 use Project\Configuration;
+use Project\Module\Galery\GaleryService;
 use Project\Module\GenericValueObject\Id;
+use Project\Module\Image\ImageService;
 use Project\Module\News\NewsService;
+use Project\Module\Upload\UploadService;
 use Project\RoutingInterface;
 use Project\Utilities\Tools;
 use Project\View\PageInterface;
@@ -58,6 +61,13 @@ class BackendController extends DefaultController
             $this->viewRenderer->addViewConfig('news', $news);
             $this->viewRenderer->addViewConfig('newsCount', \count($news));
             $this->viewRenderer->addViewConfig('lastNews', \current($news));
+        }
+        
+        $galeryService = new GaleryService($this->database);
+        $galeries = $galeryService->getAllGaleries();
+        if (empty($galeries) === false) {
+            $this->viewRenderer->addViewConfig('galeries', $galeries);
+            $this->viewRenderer->addViewConfig('galeriesCount', \count($galeries));
         }
 
         $this->viewRenderer->renderTemplate(PageInterface::PAGE_BACKEND_DASHBOARD);
@@ -170,9 +180,42 @@ class BackendController extends DefaultController
      * @throws \Twig_Error_Loader
      * @throws \InvalidArgumentException
      */
-    public function galleryAction(): void
+    public function galeryAction(): void
     {
-        $this->viewRenderer->renderTemplate(PageInterface::PAGE_BACKEND_GALLERY);
+        $this->viewRenderer->renderTemplate(PageInterface::PAGE_BACKEND_GALERY);
+    }
+
+    public function galeryCreateAction(): void
+    {
+        $galeryService = new GaleryService($this->database);
+        $imageService = new ImageService($this->database);
+
+        $galery = $galeryService->getGaleryByParameter($_POST);
+        if ($galery === null) {
+            $this->notificationService->setError('Die Galerie konnte nicht erstellt werden.');
+            header(self::HEADER_LOCATION . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_GALERY));
+            exit;
+        }
+
+        if ($galeryService->saveGalery($galery) === true) {
+            if (empty($_FILES) === false) {
+                $imagePath = UploadService::uploadImage($_FILES['imageNew']);
+
+                if ($imagePath !== null) {
+                    $image = $imageService->getImageByParameter($_POST, $galery->getGaleryId(), $imagePath);
+
+                    if ($image !== null) {
+                        $imageService->saveImage($image);
+                    }
+                }
+            }
+
+            $this->notificationService->setSuccess('Die Galerie konnte erfolgreich erstellt werden.');
+        } else {
+            $this->notificationService->setError('Die Galerie konnte nicht gespeichert werden.');
+        }
+
+        header(self::HEADER_LOCATION . Tools::getRouteUrl(RoutingInterface::ROUTE_BACKEND_GALERY));
     }
 
     /**

@@ -2,41 +2,101 @@
 
 namespace Project\Module\Image;
 
+use Project\Module\Database\Database;
+use Project\Module\GenericValueObject\Id;
+
 /**
  * Class ImageService
  * @package     Project\Module\Image
- * @copyright   Copyright (c) 2018 Maik Schößler
  */
 class ImageService
 {
+    /** @var ImageFactory $imageFactory */
+    protected $imageFactory;
+
+    /** @var ImageRepository $imageRepository */
+    protected $imageRepository;
+
     /**
-     * @param $path
+     * ImageService constructor.
      *
-     * @return Image
-     * @throws \Exception
+     * @param Database $database
      */
-    public function getImageFromPath($path): Image
+    public function __construct(Database $database)
     {
-        return Image::fromFile($path);
+        $this->imageRepository = new ImageRepository($database);
+        $this->imageFactory = new ImageFactory();
     }
 
     /**
-     * @param array  $uploadedFile
-     * @param string $path
+     * @param Id $imageId
      *
      * @return null|Image
-     * @throws \Exception
      */
-    public static function fromUploadWithSave(array $uploadedFile, string $path): ?Image
+    public function getImageByImageId(Id $imageId): ?Image
     {
-        if ($image = Image::fromFile($uploadedFile['tmp_name'])) {
-            $filePath = $path . $uploadedFile['name'];
+        try {
+            $imageData = $this->imageRepository->getImageByImageId($imageId);
 
-            if ($image->saveToPath($filePath) === true) {
-                return $image;
+            if (empty($imageData) === true) {
+                return null;
             }
-        }
 
-        return null;
+            return $this->imageFactory->getImageFromObject($imageData);
+        } catch (\Exception $exception) {
+            return null;
+        }
+    }
+
+    /**
+     * @param array       $parameter
+     * @param Id|null     $galeryId
+     * @param string|null $path
+     *
+     * @return null|Image
+     */
+    public function getImageByParameter(array $parameter, Id $galeryId = null, string $path = null): ?Image
+    {
+        try {
+            $object = (object)$parameter;
+
+            if (empty($object->imageUrl) === true && $path === null) {
+                return null;
+            }
+
+            if (empty($object->galeryId) === true && $galeryId === null) {
+                return null;
+            }
+
+            if (empty($object->imageUrl) === true) {
+                $object->imageUrl = $path;
+            }
+
+            if (empty($object->galeryId) === true) {
+                $object->galeryId = $galeryId->toString();
+            }
+
+            if (empty($object->imageId) === true) {
+                $object->imageId = Id::generateId()->toString();
+            }
+
+            return $this->imageFactory->getImageFromObject($object);
+        } catch (\Exception $exception) {
+            return null;
+        }
+    }
+
+    /**
+     * @param Image $image
+     *
+     * @return bool
+     */
+    public function saveImage(Image $image): bool
+    {
+        try {
+            return $this->imageRepository->saveImage($image);
+        } catch (\Exception $exception) {
+            return false;
+        }
     }
 }

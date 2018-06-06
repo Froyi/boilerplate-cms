@@ -38,8 +38,8 @@ interface RoutingInterface
     /** @var string ROUTE_BACKEND_NEWS */
     public const ROUTE_BACKEND_NEWS = 'news';
 
-    /** @var string ROUTE_BACKEND_GALLERY */
-    public const ROUTE_BACKEND_GALLERY = 'gallery';
+    /** @var string ROUTE_BACKEND_GALERY */
+    public const ROUTE_BACKEND_GALERY = 'galery';
 
     /** @var string ROUTE_BACKEND_SETTINGS */
     public const ROUTE_BACKEND_SETTINGS = 'settings';
@@ -55,6 +55,8 @@ interface RoutingInterface
 
     /** @var string ROUTE_JSON_NEWS_EDIT */
     public const ROUTE_JSON_NEWS_EDIT = 'newsEdit';
+
+    public const ROUTE_BACKEND_GALERY_CREATE = 'galeryCreate';
 
     /** @var string ROUTE_LOGOUT */
     public const ROUTE_LOGOUT = 'logout';

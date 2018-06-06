@@ -1,0 +1,31 @@
+<div class="news-create">
+    <h2>Erstelle eine Galerie</h2>
+
+    <form action="{{ route('galeryCreate') }}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="title">
+                Titel<br>
+                <input type="text" name="title" required/>
+            </label>
+        </div>
+
+        <div class="insert-new-image">
+            <div>
+                <label for="imageNew">
+                    Neues Bild hochladen
+                    <input type="file" name="imageNew">
+                </label>
+            </div>
+            <div>
+                <label for="imageNewTitle">
+                    Titel
+                    <input type="text" name="imageNewTitle">
+                </label>
+            </div>
+        </div>
+
+        <div>
+            <input type="submit" name="submit" value="senden">
+        </div>
+    </form>
+</div>
