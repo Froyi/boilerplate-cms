@@ -5,6 +5,7 @@ namespace Project\Module\Galery;
 
 use Project\Module\Database\Database;
 use Project\Module\GenericValueObject\Id;
+use Project\Module\Image\ImageService;
 
 /**
  * Class GaleryService
@@ -30,9 +31,11 @@ class GaleryService
     }
 
     /**
+     * @param ImageService $imageService
+     *
      * @return array
      */
-    public function getAllGaleries(): array
+    public function getAllGaleries(ImageService $imageService): array
     {
         try {
             $galeries = [];
@@ -46,6 +49,12 @@ class GaleryService
             foreach ($galeryResult as $galery) {
                 /** @var Galery $galery */
                 $galery = $this->galeryFactory->getGaleryFromObject($galery);
+
+                $images = $imageService->getImagesByGaleryId($galery->getGaleryId());
+
+                foreach ($images as $image) {
+                    $galery->addImageToImageList($image);
+                }
 
                 $galeries[$galery->getGaleryId()->toString()] = $galery;
             }

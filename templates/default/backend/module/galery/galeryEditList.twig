@@ -1,0 +1,23 @@
+<div class="galery-edit-list">
+    {% if galeriesEdit %}
+        <div class="js-edit-galery-container invisible"></div>
+
+        <h2>Galerie zur Bearbeitung auswählen</h2>
+
+        {% for galery in galeriesEdit %}
+            {% set galeryId = {'galeryId': galery.getGaleryId} %}
+            <div class="galery-edit flex js-galery-edit">
+                <div class="galery-edit-title">{{ galery.getTitle }}</div>
+                <div class="galery-edit-galery-date">{{ galery.getGaleryDate }}</div>
+                <div class="galery-edit-button">
+                    <button class="js-galery-edit-button" data-galery-id="{{ galery.getGaleryId }}">Bearbeiten</button>
+                </div>
+                <div class="galery-edit-delete-button">
+                    <a href="{{ route('galeryDelete', galeryId) }}" class="js-galery-edit-delete">Löschen</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Es gibt leider noch keine Galerie, welche bearbeitet werden kann. Bitte erstelle zunächst eine neue Galerie.</p>
+    {% endif %}
+</div>

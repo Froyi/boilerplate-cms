@@ -51,6 +51,20 @@ class ImageRepository
     }
 
     /**
+     * @param Id $galeryId
+     *
+     * @return mixed
+     * @throws \RuntimeException
+     */
+    public function getImagesByGaleryId(Id $galeryId)
+    {
+        $query = $this->database->getNewSelectQuery(self::TABLE);
+        $query->where('galeryId', '=', $galeryId->toString());
+
+        return $this->database->fetchAll($query);
+    }
+
+    /**
      * @param Image $image
      *
      * @return bool

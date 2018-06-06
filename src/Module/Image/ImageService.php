@@ -99,4 +99,29 @@ class ImageService
             return false;
         }
     }
+
+    public function getImagesByGaleryId(Id $galeryId): array
+    {
+        try {
+            $images = [];
+
+            $imagesData = $this->imageRepository->getImagesByGaleryId($galeryId);
+
+            if (empty($imagesData) === true) {
+                return $images;
+            }
+
+            foreach ($imagesData as $imageData) {
+                $image = $this->imageFactory->getImageFromObject($imageData);
+
+                if ($image !== null) {
+                    $images[] = $image;
+                }
+            }
+
+            return $images;
+        } catch (\Exception $exception) {
+            return [];
+        }
+    }
 }

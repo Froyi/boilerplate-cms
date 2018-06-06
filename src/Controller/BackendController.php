@@ -64,7 +64,9 @@ class BackendController extends DefaultController
         }
         
         $galeryService = new GaleryService($this->database);
-        $galeries = $galeryService->getAllGaleries();
+        $imageService = new ImageService($this->database);
+
+        $galeries = $galeryService->getAllGaleries($imageService);
         if (empty($galeries) === false) {
             $this->viewRenderer->addViewConfig('galeries', $galeries);
             $this->viewRenderer->addViewConfig('galeriesCount', \count($galeries));
@@ -182,6 +184,15 @@ class BackendController extends DefaultController
      */
     public function galeryAction(): void
     {
+        $imageService = new ImageService($this->database);
+        $galeryService = new GaleryService($this->database);
+
+        $galeries = $galeryService->getAllGaleries($imageService);
+
+        if (empty($galeries) === false) {
+            $this->viewRenderer->addViewConfig('galeriesEdit', $galeries);
+        }
+
         $this->viewRenderer->renderTemplate(PageInterface::PAGE_BACKEND_GALERY);
     }
 
